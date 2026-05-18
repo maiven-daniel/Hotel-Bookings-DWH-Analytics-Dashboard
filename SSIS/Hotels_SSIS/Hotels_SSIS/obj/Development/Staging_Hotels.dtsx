@@ -1,0 +1,1444 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/13/2026 9:58:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-8SV1RQE"
+  DTS:CreatorName="DESKTOP-8SV1RQE\DELL"
+  DTS:DTSID="{B1B45651-84C4-4DD0-B0CF-8FDDF36612DF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{30DB5B64-8B79-4409-9152-7AFD0AEB1897}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2f5a643a-45ca-498f-8844-5c340ee2689c}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{525F49F4-2C5F-43D4-BF96-C763D9DC6A64}"
+          SQLTask:SqlStatementSource="INSERT INTO dim_customer&#xA;(&#xA;    name,&#xA;    email,&#xA;    phone_number,&#xA;    credit_card_info,&#xA;    country,&#xA;    customer_type,&#xA;    is_repeated_guest&#xA;)&#xA;&#xA;SELECT DISTINCT&#xA;    s.name,&#xA;    s.email,&#xA;    s.phone_number,&#xA;    s.credit_card_info,&#xA;    s.country,&#xA;    s.customer_type,&#xA;    s.is_repeated_guest&#xA;FROM stg_hotel_booking s&#xA;&#xA;WHERE NOT EXISTS&#xA;(&#xA;    SELECT 1&#xA;    FROM dim_customer d&#xA;    WHERE d.email = s.email&#xA;      AND d.phone_number = s.phone_number&#xA;      AND d.name = s.name&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Staging_Hotels"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1acabf1a-24fd-4008-924b-092db271c499}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Staging_Hotels"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Staging_Hotels\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Staging_Hotels\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="{E4EEFA1D-4BC6-4B7C-A20B-8277609753E4}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[HotelCSV]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[hotel]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[hotel]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[hotel]"
+                      name="hotel"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_canceled]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_canceled]"
+                      name="is_canceled"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[lead_time]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lead_time]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[lead_time]"
+                      name="lead_time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_weekend_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_weekend_nights]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_weekend_nights]"
+                      name="stays_in_weekend_nights"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_week_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_week_nights]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_week_nights]"
+                      name="stays_in_week_nights"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[adults]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adults]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[adults]"
+                      name="adults"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[children]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[children]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[children]"
+                      name="children"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[babies]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[babies]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[babies]"
+                      name="babies"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[meal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meal]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[meal]"
+                      name="meal"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[country]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[country]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[country]"
+                      name="country"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[market_segment]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[market_segment]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[market_segment]"
+                      name="market_segment"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[distribution_channel]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[distribution_channel]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[distribution_channel]"
+                      name="distribution_channel"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_repeated_guest]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_repeated_guest]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_repeated_guest]"
+                      name="is_repeated_guest"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[previous_cancellations]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_cancellations]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[previous_cancellations]"
+                      name="previous_cancellations"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[previous_bookings_not_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_bookings_not_canceled]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[previous_bookings_not_canceled]"
+                      name="previous_bookings_not_canceled"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[reserved_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reserved_room_type]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[reserved_room_type]"
+                      name="reserved_room_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[assigned_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[assigned_room_type]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[assigned_room_type]"
+                      name="assigned_room_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[booking_changes]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[booking_changes]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[booking_changes]"
+                      name="booking_changes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[deposit_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[deposit_type]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[deposit_type]"
+                      name="deposit_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[agent]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[agent]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[agent]"
+                      name="agent"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[company]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[company]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[company]"
+                      name="company"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[days_in_waiting_list]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[days_in_waiting_list]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[days_in_waiting_list]"
+                      name="days_in_waiting_list"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[customer_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[customer_type]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[customer_type]"
+                      name="customer_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[adr]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adr]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[adr]"
+                      name="adr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[required_car_parking_spaces]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[required_car_parking_spaces]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[required_car_parking_spaces]"
+                      name="required_car_parking_spaces"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[total_of_special_requests]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[total_of_special_requests]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[total_of_special_requests]"
+                      name="total_of_special_requests"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status]"
+                      name="reservation_status"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status_date]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status_date]"
+                      name="reservation_status_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[city]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[city]"
+                      name="city"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[name]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[name]"
+                      name="name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[email]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[email]"
+                      name="email"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[phone-number]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phone-number]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[phone-number]"
+                      name="phone-number"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[credit_card]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[credit_card]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[credit_card]"
+                      name="credit_card"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[arrival_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[arrival_date]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[arrival_date]"
+                      name="arrival_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_upgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_upgraded]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_upgraded]"
+                      name="is_upgraded"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_downgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_downgraded]"
+                      length="50"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_downgraded]"
+                      name="is_downgraded"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[hotel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="hotel" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_canceled" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lead_time]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="lead_time" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_weekend_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stays_in_weekend_nights" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_week_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stays_in_week_nights" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adults]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="adults" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[children]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="children" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[babies]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="babies" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="meal" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="country" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[market_segment]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="market_segment" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[distribution_channel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="distribution_channel" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_repeated_guest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_repeated_guest" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_cancellations]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="previous_cancellations" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_bookings_not_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="previous_bookings_not_canceled" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reserved_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reserved_room_type" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[assigned_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="assigned_room_type" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[booking_changes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="booking_changes" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[deposit_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="deposit_type" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[agent]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="agent" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[company]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="company" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[days_in_waiting_list]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="days_in_waiting_list" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[customer_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="customer_type" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="adr" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[required_car_parking_spaces]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="required_car_parking_spaces" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[total_of_special_requests]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="total_of_special_requests" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reservation_status" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reservation_status_date" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="city" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="email" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phone-number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="phone-number" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[credit_card]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="credit_card" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[arrival_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="arrival_date" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_upgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_upgraded" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_downgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_downgraded" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Staging_Hotels\Stg_Hotels"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Stg_Hotels"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stg_hotel_booking]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Staging_Hotels\Stg_Hotels.Connections[OleDbConnection]"
+                  connectionManagerID="{525F49F4-2C5F-43D4-BF96-C763D9DC6A64}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Hotels_DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="name"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[name]" />
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="email"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[email]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[email]" />
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="country"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[country]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[country]" />
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[customer_type]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="customer_type"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[customer_type]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[customer_type]" />
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[is_repeated_guest]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="is_repeated_guest"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[is_repeated_guest]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[is_repeated_guest]" />
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[phone-number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="phone-number"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[phone_number]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[phone-number]" />
+                    <inputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].Columns[credit_card]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="credit_card"
+                      externalMetadataColumnId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[credit_card_info]"
+                      lineageId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output].Columns[credit_card]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="email" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[phone_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="phone_number" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[credit_card_info]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="credit_card_info" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="country" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[customer_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="customer_type" />
+                    <externalMetadataColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input].ExternalColumns[is_repeated_guest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_repeated_guest" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Staging_Hotels\Stg_Hotels.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Staging_Hotels\Stg_Hotels.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Staging_Hotels\Stg_Hotels.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Staging_Hotels\Stg_Hotels.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Staging_Hotels.Paths[Flat File Source Output]"
+              endId="Package\Staging_Hotels\Stg_Hotels.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\Staging_Hotels\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{72DE835E-8471-46E4-9C70-B4086D9CB75B}"
+      DTS:From="Package\Staging_Hotels"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Execute SQL Task" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="148.8,41.6"
+          Id="Package\Staging_Hotels"
+          TopLeft="118.571428823836,132.294117531098" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Execute SQL Task"
+          TopLeft="114.285714528999,252.352940955273" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="194.228571676417,173.894117531098">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,78.4588234241752"
+              Start="0,0"
+              End="0,70.9588234241752">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,70.9588234241752" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Staging_Hotels">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Staging_Hotels\Flat File Source"
+          TopLeft="110.714285949967,52.7647058361026" />
+        <NodeLayout
+          Size="128.8,41.6"
+          Id="Package\Staging_Hotels\Stg_Hotels"
+          TopLeft="119.285714539642,181.235293958788" />
+        <EdgeLayout
+          Id="Package\Staging_Hotels.Paths[Flat File Source Output]"
+          TopLeft="184.800000244805,94.3647058361026">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,86.8705881226855"
+              Start="0,0"
+              End="0,79.3705881226855">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,79.3705881226855" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Staging_Hotels\Stg_Hotels">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

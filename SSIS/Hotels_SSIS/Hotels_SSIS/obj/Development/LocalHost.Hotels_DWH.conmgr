@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LocalHost.Hotels_DWH"
+  DTS:DTSID="{525F49F4-2C5F-43D4-BF96-C763D9DC6A64}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.;Initial Catalog=Hotels_DWH;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Hotels_SSIS-{525F49F4-2C5F-43D4-BF96-C763D9DC6A64}LocalHost.Hotels_DWH;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

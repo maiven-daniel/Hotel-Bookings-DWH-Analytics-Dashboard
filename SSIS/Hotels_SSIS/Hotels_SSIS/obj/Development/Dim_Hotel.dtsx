@@ -1,0 +1,1491 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/12/2026 4:34:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-8SV1RQE"
+  DTS:CreatorName="DESKTOP-8SV1RQE\DELL"
+  DTS:DTSID="{F59F7467-1589-4C3D-A503-65542818173E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{5BBF4D67-BE59-46E9-9E7D-020925460131}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DIM_HOTEL"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{76F0F545-749C-40A8-9B19-C08FF48AB7C2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DIM_HOTEL"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DIM_HOTEL\Aggregate"
+              componentClassID="Microsoft.Aggregate"
+              contactInfo="Aggregate;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+              description="Aggregates data with functions such as Average, Sum, Count, Max, and Min. For example, group data to compute the sum of sales per product or the average visits per day."
+              name="Aggregate"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                  name="KeyScale"
+                  typeConverter="KeyScaleType">0</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                  name="Keys" />
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the approximate number of distinct values in a column that the aggregation counts distinctly. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no CountDistinctScale value is used."
+                  name="CountDistinctScale"
+                  typeConverter="KeyScaleType">0</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the exact number of distinct values in a column that the aggregation counts distinctly. If a CountDistinctScale value is specified, the value in CountDistinctKeys takes precedence."
+                  name="CountDistinctKeys" />
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage by which memory can be extended during the aggregation. Valid values are between 1 and 100."
+                  name="AutoExtendFactor">25</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DIM_HOTEL\Aggregate.Inputs[Aggregate Input 1]"
+                  name="Aggregate Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DIM_HOTEL\Aggregate.Inputs[Aggregate Input 1].Columns[hotel]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="hotel"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[hotel]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DIM_HOTEL\Aggregate.Outputs[Aggregate Output 1]"
+                  name="Aggregate Output 1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                      name="KeyScale"
+                      typeConverter="KeyScaleType">0</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                      name="Keys" />
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Aggregate.Outputs[Aggregate Output 1].Columns[hotel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Aggregate.Outputs[Aggregate Output 1].Columns[hotel]"
+                      name="hotel">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[hotel]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DIM_HOTEL\DIM_HOTEL"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DIM_HOTEL"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Dim_Hotel]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DIM_HOTEL\DIM_HOTEL.Connections[OleDbConnection]"
+                  connectionManagerID="{525F49F4-2C5F-43D4-BF96-C763D9DC6A64}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.Hotels_DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input].Columns[hotel]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="hotel"
+                      externalMetadataColumnId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input].ExternalColumns[hotel]"
+                      lineageId="Package\DIM_HOTEL\Aggregate.Outputs[Aggregate Output 1].Columns[hotel]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input].ExternalColumns[hotel_key]"
+                      dataType="i4"
+                      name="hotel_key" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input].ExternalColumns[hotel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="hotel" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DIM_HOTEL\DIM_HOTEL.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\DIM_HOTEL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DIM_HOTEL\DIM_HOTEL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\DIM_HOTEL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DIM_HOTEL\DIM_HOTEL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DIM_HOTEL\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DIM_HOTEL\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="{37183AAE-AC9B-4003-8476-BDCB5C894DA9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Hotels_CSV]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[hotel]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[hotel]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[hotel]"
+                      name="hotel"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_canceled]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_canceled]"
+                      name="is_canceled"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[lead_time]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lead_time]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[lead_time]"
+                      name="lead_time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_weekend_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_weekend_nights]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_weekend_nights]"
+                      name="stays_in_weekend_nights"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_week_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_week_nights]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[stays_in_week_nights]"
+                      name="stays_in_week_nights"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[adults]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adults]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[adults]"
+                      name="adults"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[children]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[children]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[children]"
+                      name="children"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[babies]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[babies]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[babies]"
+                      name="babies"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[meal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meal]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[meal]"
+                      name="meal"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[country]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[country]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[country]"
+                      name="country"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[market_segment]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[market_segment]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[market_segment]"
+                      name="market_segment"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[distribution_channel]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[distribution_channel]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[distribution_channel]"
+                      name="distribution_channel"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_repeated_guest]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_repeated_guest]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_repeated_guest]"
+                      name="is_repeated_guest"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[previous_cancellations]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_cancellations]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[previous_cancellations]"
+                      name="previous_cancellations"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[previous_bookings_not_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_bookings_not_canceled]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[previous_bookings_not_canceled]"
+                      name="previous_bookings_not_canceled"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[reserved_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reserved_room_type]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[reserved_room_type]"
+                      name="reserved_room_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[assigned_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[assigned_room_type]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[assigned_room_type]"
+                      name="assigned_room_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[booking_changes]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[booking_changes]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[booking_changes]"
+                      name="booking_changes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[deposit_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[deposit_type]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[deposit_type]"
+                      name="deposit_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[agent]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[agent]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[agent]"
+                      name="agent"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[company]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[company]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[company]"
+                      name="company"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[days_in_waiting_list]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[days_in_waiting_list]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[days_in_waiting_list]"
+                      name="days_in_waiting_list"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[customer_type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[customer_type]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[customer_type]"
+                      name="customer_type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[adr]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adr]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[adr]"
+                      name="adr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[required_car_parking_spaces]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[required_car_parking_spaces]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[required_car_parking_spaces]"
+                      name="required_car_parking_spaces"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[total_of_special_requests]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[total_of_special_requests]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[total_of_special_requests]"
+                      name="total_of_special_requests"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status]"
+                      name="reservation_status"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status_date]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[reservation_status_date]"
+                      name="reservation_status_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[city]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[city]"
+                      name="city"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[name]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[name]"
+                      name="name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[email]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[email]"
+                      name="email"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[phone-number]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phone-number]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[phone-number]"
+                      name="phone-number"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[credit_card]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[credit_card]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[credit_card]"
+                      name="credit_card"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[arrival_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[arrival_date]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[arrival_date]"
+                      name="arrival_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_upgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_upgraded]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_upgraded]"
+                      name="is_upgraded"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_downgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_downgraded]"
+                      length="50"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].Columns[is_downgraded]"
+                      name="is_downgraded"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[hotel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="hotel" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_canceled" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lead_time]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="lead_time" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_weekend_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stays_in_weekend_nights" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[stays_in_week_nights]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stays_in_week_nights" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adults]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="adults" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[children]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="children" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[babies]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="babies" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[meal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="meal" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="country" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[market_segment]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="market_segment" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[distribution_channel]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="distribution_channel" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_repeated_guest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_repeated_guest" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_cancellations]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="previous_cancellations" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[previous_bookings_not_canceled]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="previous_bookings_not_canceled" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reserved_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reserved_room_type" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[assigned_room_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="assigned_room_type" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[booking_changes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="booking_changes" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[deposit_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="deposit_type" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[agent]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="agent" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[company]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="company" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[days_in_waiting_list]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="days_in_waiting_list" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[customer_type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="customer_type" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="adr" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[required_car_parking_spaces]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="required_car_parking_spaces" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[total_of_special_requests]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="total_of_special_requests" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reservation_status" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[reservation_status_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reservation_status_date" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[city]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="city" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="email" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[phone-number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="phone-number" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[credit_card]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="credit_card" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[arrival_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="arrival_date" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_upgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_upgraded" />
+                    <externalMetadataColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[is_downgraded]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_downgraded" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DIM_HOTEL.Paths[Aggregate Output 1]"
+              endId="Package\DIM_HOTEL\DIM_HOTEL.Inputs[OLE DB Destination Input]"
+              name="Aggregate Output 1"
+              startId="Package\DIM_HOTEL\Aggregate.Outputs[Aggregate Output 1]" />
+            <path
+              refId="Package\DIM_HOTEL.Paths[Flat File Source Output]"
+              endId="Package\DIM_HOTEL\Aggregate.Inputs[Aggregate Input 1]"
+              name="Flat File Source Output"
+              startId="Package\DIM_HOTEL\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate DIM_HOTEL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B631EE1A-4386-4FF1-8CAC-39A3F3A1FAA8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate DIM_HOTEL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{525F49F4-2C5F-43D4-BF96-C763D9DC6A64}"
+          SQLTask:SqlStatementSource="DELETE FROM Dim_Hotel;&#xA;DBCC CHECKIDENT ('Dim_Hotel', RESEED, 0);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{3AE93931-C8CF-42A9-8CDA-9A86F1D72416}"
+      DTS:From="Package\Truncate DIM_HOTEL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DIM_HOTEL" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,41.6"
+          Id="Package\DIM_HOTEL"
+          TopLeft="138.57142886641,187.352941012248" />
+        <NodeLayout
+          Size="180.8,41.6"
+          Id="Package\Truncate DIM_HOTEL"
+          TopLeft="122.142857402867,70.3529411148035" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="209.557143134639,111.952941114804">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75.3999998974445"
+              Start="0,0"
+              End="0,67.8999998974445">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.8999998974445" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DIM_HOTEL">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,41.6"
+          Id="Package\DIM_HOTEL\DIM_HOTEL"
+          TopLeft="105.000000223517,285.99999974931" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\DIM_HOTEL\Flat File Source"
+          TopLeft="100.71428592868,58.8823528895637" />
+        <NodeLayout
+          Size="126.4,41.6"
+          Id="Package\DIM_HOTEL\Aggregate"
+          TopLeft="106.42857165513,172.058823378596" />
+        <EdgeLayout
+          Id="Package\DIM_HOTEL.Paths[Flat File Source Output]"
+          TopLeft="172.771428791905,100.482352889564">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71.5764704890319"
+              Start="0,0"
+              End="0,64.0764704890319">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64.0764704890319" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DIM_HOTEL.Paths[Aggregate Output 1]"
+          TopLeft="171.314285939324,213.658823378596">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,72.3411763707141"
+              Start="0,0"
+              End="0,64.8411763707141">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64.8411763707141" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DIM_HOTEL\DIM_HOTEL">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
