@@ -594,13 +594,13 @@ Refresh the data source connection if needed.
 
 ## 🌟 About Me
 
-Hi, I'm **Gehad Hany Elsayed**.  
+Hi, I'm **Maiven Daniel Sobhy**.  
 I am interested in **Data Engineering**, **ETL Pipelines**, **Data Warehousing**, and **Business Intelligence**.
 
 This project demonstrates my ability to clean data, design a data warehouse, build ETL pipelines using SSIS, and create business dashboards using Power BI.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gehad-hani-36602a261)
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Gehad-Hany)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/maiven-daniel-b29223315/)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/maiven-daniel)
 
 ---
 
